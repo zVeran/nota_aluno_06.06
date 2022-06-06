@@ -1,54 +1,65 @@
-//querrySelector retorna o primeiro elemento
-//que corresponde aos selectores especificados
-let $titulo = document.querySelector("#titulo");
-$titulo.textContent = "ETEC Professor Basilides e Godoy" //Define ou retorna o conteudo de texto
+/* retorna o primaiero elemento que corresponde 
+aos seletores específicos*/
+
+let $TituloPagina = document.querySelector("#titulo");
+
+/* a propriedade text.content 
+define ou retorna o conteúdo de texto*/
+
+$TituloPagina.textContent = "ETEC Professor Basilides de Godoy";
 
 let $tabela = document.querySelector("#tabela-aluno");
-//console.log($tabela);
+// console.log($tabela);
 
-let $registroAlunos = document.querySelectorAll(".aluno");
-console.log($registroAlunos);
+let $RegistroAlunos = document.querySelectorAll(".aluno");
+console.log($RegistroAlunos);
 
-for(let j = 0;j < $registroAlunos.length ;j++){
-    let $contagem = $registroAlunos[j];
+for(let j=0; j<$RegistroAlunos.length; j++){
+    let $contagem = $RegistroAlunos[j];
     let $nome = $contagem.querySelector(".td-nome").textContent;
     let $n1 = $contagem.querySelector(".td-n1").textContent;
     let $n2 = $contagem.querySelector(".td-n2").textContent;
     let $n3 = $contagem.querySelector(".td-n3").textContent;
+    let $tabela = document.querySelector("#tabela-aluno");
+    $tabela.appendChild($alunotr);
 
-    let $mediaAluno = calcularMedia($n1,$n2,$n3);
+    let $mediaFinal = $calcularMedia($n1, $n2, $n3);
 
-    let $mediaFinal = $contagem.querySelector(".td-media");
-    $mediaFinal.textContent = $mediaAluno.toFixed(2);
+    let $media = $contagem.querySelector(".td-media");
+    $media.textContent = $mediaFinal.toFixed(1);
+
+    if($media.textContent < 6){
+        $media.style.color = "red";
+        $media.style.fontWeight = "bold";
+    }
+
+    else{
+        $media.style.color = "blue";
+        $media.style.fontWeight = "bold";
+    }
 
     let $situacao = $contagem.querySelector(".td-situacao");
-    $situacao.textContent = mostrarSituacao($mediaAluno)[0];
-    $situacao.classList.add(mostrarSituacao($mediaAluno)[1]);
+    $situacao.textContent = mostrarSituacao($mediaFinal)[0];
+    $situacao.classList.add(mostrarSituacao($mediaFinal)[1]);
 
-    if($mediaFinal.textContent < 5){
-        $mediaFinal.style.color = "red";
-        $mediaFinal.style.fontWeight = "bold";
-    }                              
-    else{
-        $mediaFinal.style.color = "blue";
-        $mediaFinal.style.fontWeight = "bold";
-    }
 }
 
-function calcularMedia(x,y,z){
-    return(parseFloat(x)+parseFloat(y)+parseFloat(z))/3;
-}                                     
+function $calcularMedia(x, y, z){
+    return(parseFloat(x) + parseFloat(y) + parseFloat(z)) / 3;
+}
 
 function mostrarSituacao(x){
-    let $resultado=[];
+    let $resultado = [];
 
-    if(x < 5){
+    if(x < 6){
         $resultado.push("Reprovado");
-        $resultado.push("reprovado")
+        $resultado.push("reprovado");
     }
+
     else{
         $resultado.push("Aprovado");
-        $resultado.push("aprovado")
+        $resultado.push("aprovado");
     }
+
     return $resultado;
 }
